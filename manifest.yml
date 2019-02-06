@@ -1,0 +1,10 @@
+---
+applications:
+- name: todos-source
+  memory: 1G
+  routes:
+  - route: https://todos-source.cfapps.io
+  path: target/todos-source-1.0.0-SNAP.jar
+  buildpack: java_buildpack
+  services:
+  - rabbitmq
