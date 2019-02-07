@@ -30,7 +30,7 @@ POST a todo to the todos-source endpoint, for example using [HttpPie](https://ht
 http :8080/ title="#one #two three"
 ```
 
-### Observer
+### Observe
 
 * [Todos Processor](https://github.com/corbtastik/todos-processor) - If the Todo contains #hashtags a statement is logged and the #hashtags are parsed into a set containing #hashtags.
 * [Todos Sink](https://github.com/corbtastik/todos-sink) - Logs todo events
