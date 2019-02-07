@@ -41,6 +41,8 @@ public class TodosSourceApp {
     interface SourceChannels {
         @Output
         MessageChannel output();
+        @Output
+        MessageChannel output2();
     }
 
     private SourceChannels channels;
@@ -55,6 +57,8 @@ public class TodosSourceApp {
         if(todo.getId() == null) {
             todo.setId(seq.getAndIncrement());
         }
+        this.channels.output2().send(new GenericMessage<>(todo));
+
         this.channels.output().send(new GenericMessage<>(todo));
         LOG.info("Firing event for " + todo.toString());
         return todo;
