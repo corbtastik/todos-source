@@ -3,8 +3,8 @@ applications:
 - name: todos-source
   memory: 1G
   routes:
-  - route: https://todos-source.cfapps.io
+  - route: https://todos-source.apps.retro.io
   path: target/todos-source-1.0.0-SNAP.jar
-  buildpack: java_buildpack
+  buildpack: java_buildpack_offline
   services:
-  - rabbitmq
+  - todos-messaging 
