@@ -32,6 +32,6 @@ http :8080/ title="#one #two three"
 
 ### Observe
 
-If a Todo hash a hashtag in the title the Processor adds the hashtag into a Set and republishes the event which in-turn is handled by the Sink and adding into a Hashtag Index.
+If a Todo has a hashtag in the title the Processor adds the hashtag into a Set and republishes the event which in-turn is handled by the Sink and adding into a Hashtag Index.
 
 You can see evidence of this by tailing the log of the Sink while you Source a Todo with a hashtag in the title.
