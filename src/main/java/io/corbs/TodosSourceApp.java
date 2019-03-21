@@ -1,9 +1,5 @@
 package io.corbs;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-class Todo {
-    private Integer id;
-    private String title = "";
-    private Boolean completed = false;
-}
-
+/**
+ * Streams apps are plain ole Spring Boot apps that
+ * declare a "binding" and "channels" to communicate on.
+ *
+ * Sources are responsible for "sourcing" data to be consumed
+ * by a Processors and/or Sinks.
+ *
+ * This Source simply published an event for every Todo
+ * POST'ed to the context root of this app.
+ *
+ * @author corbs
+ */
 @SpringBootApplication
 @RestController
 @EnableBinding(TodosSourceApp.SourceChannels.class)
@@ -38,11 +36,12 @@ public class TodosSourceApp {
 
     private final static AtomicInteger seq = new AtomicInteger(1);
 
+    /**
+     * Sources have outputs
+     */
     interface SourceChannels {
         @Output
         MessageChannel output();
-        @Output
-        MessageChannel output2();
     }
 
     private SourceChannels channels;
@@ -53,14 +52,13 @@ public class TodosSourceApp {
     }
 
     @PostMapping("/")
-    public Todo eventTodo(@RequestBody Todo todo) {
+    public Todo source(@RequestBody Todo todo) {
         if(todo.getId() == null) {
             todo.setId(seq.getAndIncrement());
         }
-        this.channels.output2().send(new GenericMessage<>(todo));
 
         this.channels.output().send(new GenericMessage<>(todo));
-        LOG.info("Firing event for " + todo.toString());
+        LOG.info("Publishing event for " + todo.toString());
         return todo;
     }
 

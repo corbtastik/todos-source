@@ -32,8 +32,6 @@ http :8080/ title="#one #two three"
 
 ### Observe
 
-* [Todos Processor](https://github.com/corbtastik/todos-processor) - If the Todo contains #hashtags a statement is logged and the #hashtags are parsed into a set containing #hashtags.
-* [Todos Sink](https://github.com/corbtastik/todos-sink) - Logs todo events
+If a Todo hash a hashtag in the title the Processor adds the hashtag into a Set and republishes the event which in-turn is handled by the Sink and adding into a Hashtag Index.
 
-
-
+You can see evidence of this by tailing the log of the Sink while you Source a Todo with a hashtag in the title.
