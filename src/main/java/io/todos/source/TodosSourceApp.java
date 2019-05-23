@@ -1,4 +1,4 @@
-package io.corbs;
+package io.todos.source;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,13 +7,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.Output;
+import org.springframework.http.HttpStatus;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.support.GenericMessage;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 
 /**
  * Streams apps are plain ole Spring Boot apps that
@@ -34,8 +36,6 @@ public class TodosSourceApp {
 
     private static final Logger LOG = LoggerFactory.getLogger(TodosSourceApp.class);
 
-    private final static AtomicInteger seq = new AtomicInteger(1);
-
     /**
      * Sources have outputs
      */
@@ -54,7 +54,7 @@ public class TodosSourceApp {
     @PostMapping("/")
     public Todo source(@RequestBody Todo todo) {
         if(todo.getId() == null) {
-            todo.setId(seq.getAndIncrement());
+            todo.setId(System.currentTimeMillis());
         }
 
         this.channels.output().send(new GenericMessage<>(todo));
