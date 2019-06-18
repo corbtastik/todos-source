@@ -5,7 +5,7 @@
 
 	<groupId>io.corbs</groupId>
 	<artifactId>todos-source</artifactId>
-	<version>1.0.0-SNAP</version>
+	<version>1.0.0.SNAP</version>
 	<packaging>jar</packaging>
 
 	<name>todos-source</name>

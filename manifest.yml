@@ -7,4 +7,4 @@ applications:
   path: target/todos-source-1.0.0-SNAP.jar
   buildpack: java_buildpack_offline
   services:
-  - todos-messaging 
+  - todos-messages
