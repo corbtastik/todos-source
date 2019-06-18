@@ -1,4 +1,4 @@
-package io.corbs;
+package io.todos.source;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
